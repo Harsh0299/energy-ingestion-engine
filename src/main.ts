@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { PrismaService } from './database/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,7 +25,9 @@ async function bootstrap() {
     ],
     credentials: true,
   });
-  
+
+  await app.get(PrismaService).$queryRaw`SELECT 1`;
+  console.log('DB ready');
 
   await app.listen(3000);
 }
