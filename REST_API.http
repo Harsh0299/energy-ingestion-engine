@@ -29,3 +29,9 @@ Content-Type: application/json
 
 http://localhost:3000/v1/analytics/performance/V-101
 GET
+###
+
+GET http://localhost:3000/v1/analytics/summary
+###
+
+GET http://localhost:3000/v1/analytics/activity?range=24h&limit=20
