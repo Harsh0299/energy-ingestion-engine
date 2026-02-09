@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: energy-postgres
+    environment:
+      POSTGRES_DB: energy
+      POSTGRES_USER: energy
+      POSTGRES_PASSWORD: energy
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: energy-api
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://energy:energy@postgres:5432/energy
+      NODE_ENV: production
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

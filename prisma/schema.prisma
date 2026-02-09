@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model MeterTelemetryHistory {
+  id               BigInt   @id @default(autoincrement())
+  meterId          String
+  timestamp        DateTime
+  kwhConsumedAc    Decimal
+  voltage          Decimal
+  createdAt        DateTime @default(now())
+
+  @@index([meterId, timestamp(sort: Desc)])
+}
+
+model VehicleTelemetryHistory {
+  id               BigInt   @id @default(autoincrement())
+  vehicleId        String
+  timestamp        DateTime
+  soc              Decimal
+  kwhDeliveredDc   Decimal
+  batteryTemp      Decimal
+  createdAt        DateTime @default(now())
+
+  @@index([vehicleId, timestamp(sort: Desc)])
+}
+
+model LiveMeterState {
+  meterId              String   @id
+  totalKwhConsumedAc   Decimal
+  lastVoltage          Decimal
+  lastReportedAt       DateTime
+  updatedAt            DateTime @default(now())
+}
+
+model LiveVehicleState {
+  vehicleId                String   @id
+  soc                      Decimal
+  totalKwhDeliveredDc      Decimal
+  avgBatteryTemp           Decimal
+  lastReportedAt           DateTime
+  updatedAt                DateTime @default(now())
+}

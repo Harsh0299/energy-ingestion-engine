@@ -1,0 +1,31 @@
+POST http://localhost:3000/v1/ingest
+Content-Type: application/json
+
+{
+  "meterId": "M-101",
+  "kwhConsumedAc": 12.4,
+  "voltage": 230,
+  "timestamp": "2026-02-08T10:01:00Z"
+}
+
+###
+
+http://localhost:3000/v1/analytics/performance/M-101
+GET
+
+###
+
+POST http://localhost:3000/v1/ingest
+Content-Type: application/json
+
+{
+  "vehicleId": "V-101",
+  "soc": 67,
+  "kwhDeliveredDc": 10.8,
+  "batteryTemp": 34.2,
+  "timestamp": "2026-02-08T10:01:00Z"
+}
+###
+
+http://localhost:3000/v1/analytics/performance/V-101
+GET
